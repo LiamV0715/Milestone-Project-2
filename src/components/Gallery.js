@@ -1,6 +1,7 @@
+import React from "react";
 import GalleryItem from "./GalleryItem";
 
-function Gallery() {
+export default function Gallery() {
   const galleryLayout = {
     "padding-left": "30px",
     display: "flex",
@@ -11,4 +12,4 @@ function Gallery() {
   return <div style={galleryLayout}>{display}</div>;
 }
 
-export default Gallery;
+
