@@ -39,8 +39,8 @@ app.get('/', (req, res) => {
 // app.use('/pets', bandsController) //the pets here will be Andi's model
 // =======
         message: 'Welcome to the Pets App'
-    })
-})
+    // })
+// })
 
 // CONTROLLERS  
 // >>>>>>> main
