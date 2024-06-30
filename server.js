@@ -2,14 +2,14 @@
 const express = require('express')
 const app = express()
 import React from 'react';
-const { Sequelize } = require('sequelize')
-const pets = require('./controllers/pets_controller')
-const petView = require ('./components/PetView')
-const AddAPet = require ('./components/AddAPet')
-const Home = require ('./components/Home')
-const Comment = require ('./components/Comment')
-const Gallery = require ('./components/Gallery')
-const GalleryItem = require ('./components/GalleryItem')
+// const { Sequelize } = require('sequelize')
+// // const pets = require('./controllers/pets_controller')
+// const petView = require ('./components/PetView')
+// const AddAPet = require ('./components/AddAPet')
+// const Home = require ('./components/Home')
+// const Comment = require ('./components/Comment')
+// const Gallery = require ('./components/Gallery')
+// const GalleryItem = require ('./components/GalleryItem')
 
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
@@ -27,9 +27,9 @@ app.get('/', (req, res) => {
 })
 
 
-// CONTROLLERS  
-const PetsController = require('./controllers/pets_controller')
-app.use('/pets', bandsController) //the pets here will be Andi's model
+// // CONTROLLERS  
+// const PetsController = require('./controllers/pets_controller')
+// app.use('/pets', bandsController) //the pets here will be Andi's model
 
 // LISTEN
 app.listen(process.env.PORT, () => {
