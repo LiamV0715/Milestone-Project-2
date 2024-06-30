@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 // <<<<<<< compenent-skeleton
 import React from 'react';
-// const { Sequelize } = require('sequelize')
+const { Sequelize } = require('sequelize');
 // // const pets = require('./controllers/pets_controller')
 // const petView = require ('./components/PetView')
 // const AddAPet = require ('./components/AddAPet')

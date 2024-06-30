@@ -1,11 +1,9 @@
-// //Feel free to comment any of this out! extremely temporary
-// //and guaranteed to be refactored later
-
 // // DEPENDENCIES
 // const stages = require('express').Router()
 // const db = require('../components')
 // const { Pets } = db 
 // const { Op } = require('sequelize')
+const { Sequelize } = require('sequelize');
 
 // // FIND ALL STAGES
 // pets.get('/', async (req, res) => {
