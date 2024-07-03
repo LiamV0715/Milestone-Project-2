@@ -27,7 +27,7 @@ module.exports = {
       level: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
+      }
     });
   },
   async down(queryInterface, Sequelize) {
