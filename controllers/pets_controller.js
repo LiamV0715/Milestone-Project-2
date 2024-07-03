@@ -53,7 +53,7 @@ pets.put('/:id', async (req, res) => {
             }
         })
         res.status(200).json({
-            message: `Successfully updated ${updatedStages} stage(s)`
+            message: `Successfully updated ${updatedPets} pet(s)`
         })
     } catch(err) {
         res.status(500).json(err)
