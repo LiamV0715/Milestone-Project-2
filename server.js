@@ -1,24 +1,32 @@
-const express = require('express')
-const app = express()
-const port = 3001
-// const Sequelize = require('sequelize')
+const express = require("express");
+const bodyParser = require("body-parser");
 
-// CONFIGURATION / MIDDLEWARE
-require('dotenv').config()
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+const app = express();
+const port = 3000;
+const db = require('./connect');
+
+app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+)
 
 // CONTROLLERS  
 const petsController = require('./controllers/pets_controller')
-app.use('/pets', petsController)
+app.use('/gallery', petsController)
 
-// ROUTES
-app.get('/', (req, res) => {
-    res.send('Welcome to the pet zone')
+app.get("/", (request, response) => {
+    response.json({
+        info: 'Hello world!'
+    });
 })
+app.get("/gallery", db.getPets);
+app.get("/gallery/:id", db.getPetById);
+app.put("/gallery/:id", db.updatePet);
+app.post("/gallery", db.createPet);
+app.delete("/gallery/:id", db.deletePet);
 
-// LISTEN
 app.listen(port, () => {
-    console.log(`App running on port ${port}.`)
-})
-
+    console.log("Server is running on " + port);
+});
