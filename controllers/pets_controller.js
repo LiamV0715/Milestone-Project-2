@@ -1,80 +1,52 @@
-// // DEPENDENCIES
-const pets = require('express').Router()
-const db = require('../components')
-const { Pets } = db 
-const { Op } = require('sequelize')
-const { Sequelize } = require('sequelize')
+const express = require('express')
+const pets = express.Router()
+const Pets = require('../models/pets.js')
 
-// FIND ALL PETS
-pets.get('/', async (req, res) => {
-    try {
-        const foundPets = await Pet.findAll({
-            where: {
-                name: { [Op.like]: `%${req.query.name ? req.query.name : ''}%` }
-            }
+// INDEX
+pets.get('/gallery', (req, res) => {
+    res.render('Index',
+        {
+            pets: Pets,
+            title: "My Index Page"
+        }
+    )
+})
+
+// NEW
+pets.get('/addapet', (req, res) => {
+    res.render('new')
+})
+
+// EDIT
+pets.get('/:indexArray/edit', (req, res) => {
+    res.render('edit', {
+        pets: Pets[req.params.indexArray],
+        index: req.params.indexArray
+    })
+})
+
+// SHOW
+pets.get('/:arrayIndex', (req, res) => {
+    if (Pets[req.params.arrayIndex]) {
+        res.render('Show', {
+            pets: Pets[req.params.arrayIndex],
+            index: req.params.arrayIndex,
         })
-        res.status(200).json(foundPets)
-    } catch (error) {
-        res.status(500).json(error)
+    } else {
+        res.render('404')
     }
 })
 
-// FIND A SPECIFIC PET
-pets.get('/:id', async (req, res) => {
-    try {
-        const foundPets = await Pets.findOne({
-            where: { pet_id: req.params.id }
-        })
-        res.status(200).json(foundPets)
-    } catch (error) {
-        res.status(500).json(error)
-    }
+// CREATE
+pets.post('/addapet', (req, res) => {
+    Pets.push(req.body)
+    res.redirect('/gallery')
 })
 
-// CREATE A PET
-pets.post('/', async (req, res) => {
-    try {
-        const newPet = await Pets.create(req.body)
-        res.status(200).json({
-            message: 'Successfully inserted a new pet',
-            data: newPet
-        })
-    } catch(err) {
-        res.status(500).json(err)
-    }
+// DELETE
+pets.delete('/:indexArray', (req, res) => {
+    Pets.splice(req.params.indexArray, 1)
+    res.status(303).redirect('/gallery')
 })
 
-// UPDATE A PET
-pets.put('/:id', async (req, res) => {
-    try {
-        const updatedPets = await Pet.update(req.body, {
-            where: {
-                pet_id: req.params.id
-            }
-        })
-        res.status(200).json({
-            message: `Successfully updated ${updatedPets} pet(s)`
-        })
-    } catch(err) {
-        res.status(500).json(err)
-    }
-})
-
-// DELETE A PET
-pets.delete('/:id', async (req, res) => {
-    try {
-        const deletedPets = await Pets.destroy({
-            where: {
-                pet_id: req.params.id
-            }
-        })
-        res.status(200).json({
-            message: `Successfully deleted ${deletedPets} pet(s)`
-        })
-    } catch(err) {
-        res.status(500).json(err)
-    }
-})
-
-// EXPORT
 module.exports = pets
