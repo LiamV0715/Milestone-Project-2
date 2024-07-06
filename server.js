@@ -1,3 +1,12 @@
+// DEPENDENCIES
+const { Sequelize } = require('sequelize');
+import './App.css'
+
+// CONFIGURATION / MIDDLEWARE
+require('dotenv').config()
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
 const express = require("express");
 const bodyParser = require("body-parser");
 
