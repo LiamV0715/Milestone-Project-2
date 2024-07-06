@@ -1,18 +1,16 @@
 // DEPENDENCIES
 const { Sequelize } = require('sequelize');
-import './App.css'
+// import './App.css'
+const express = require("express");
+const app = express();
+const db = require('./connect');
 
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-
-const express = require("express");
 const bodyParser = require("body-parser");
-
-const app = express();
 const port = 3000;
-const db = require('./connect');
 
 app.use(bodyParser.json());
 app.use(
@@ -34,7 +32,7 @@ app.get("/gallery", db.getPets);
 app.get("/gallery/:id", db.getPetById);
 app.put("/gallery/:id", db.updatePet);
 app.post("/gallery", db.createPet);
-app.delete("/gallery/:id", db.deletePet);
+// app.delete("/gallery/:id", db.deletePet);
 
 app.listen(port, () => {
     console.log("Server is running on " + port);

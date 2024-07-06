@@ -47,7 +47,7 @@ const getPetById = (request, response) => {
 
 const createPet = (request, response) => {
     const { name, age, weight } = request.body;
-    pool.query('INSERT INTO students (name, age, weight) VALUES ($1, $2, $3)', [name, age, weight], (error, results) => {
+    pool.query('INSERT INTO pets (name, age, weight) VALUES ($1, $2, $3)', [name, age, weight], (error, results) => {
         if (error) {
             throw error
         }
@@ -79,3 +79,6 @@ const updatePet = (request, response) => {
         response.status(500).json(responseReturn);
     }
 }
+
+
+module.exports = { getPets, createPet, updatePet, getPetById }
