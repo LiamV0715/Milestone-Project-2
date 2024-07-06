@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const { Sequelize } = require('sequelize');
-
+import './App.css'
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
 app.use(express.json())
