@@ -1,25 +1,41 @@
 // DEPENDENCIES
-const express = require('express')
-const app = express()
 const { Sequelize } = require('sequelize');
 import './App.css'
+
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-// ROOT
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Welcome to the Pet Zone'
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+const port = 3000;
+const db = require('./connect');
+
+app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: true
     })
-})
+)
 
 // CONTROLLERS  
 const petsController = require('./controllers/pets_controller')
-app.use('/pets', petsController)
+app.use('/gallery', petsController)
 
-// LISTEN
-app.listen(process.env.PORT, () => {
-    console.log("Pets are cool")
+app.get("/", (request, response) => {
+    response.json({
+        info: 'Hello world!'
+    });
 })
+app.get("/gallery", db.getPets);
+app.get("/gallery/:id", db.getPetById);
+app.put("/gallery/:id", db.updatePet);
+app.post("/gallery", db.createPet);
+app.delete("/gallery/:id", db.deletePet);
+
+app.listen(port, () => {
+    console.log("Server is running on " + port);
+});
