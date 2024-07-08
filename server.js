@@ -10,7 +10,7 @@ require('dotenv').config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 const bodyParser = require("body-parser");
-const port = 3000;
+const port = 5432;
 
 app.use(bodyParser.json());
 app.use(
