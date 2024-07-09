@@ -1,16 +1,22 @@
 const express = require('express')
 const pets = express.Router()
 const Pets = require('../models/pets.js')
+const { Op } = require('sequelize')
 
 // INDEX
-pets.get('/gallery', (req, res) => {
-    res.render('Index',
-        {
-            pets: Pets,
-            title: "My Index Page"
-        }
-    )
+pets.get('/', async (req, res) => {
+    try {
+        const foundPets = await Pet.findAll({
+            where: {
+                pet_name: { [Op.like]: `%${req.query.pet_name ? req.query.pet_name : ''}%` }
+            }
+        })
+        res.status(200).json(foundPets)
+    } catch (error) {
+        res.status(500).json(error)
+    }
 })
+
 
 // NEW
 pets.get('/addapet', (req, res) => {
