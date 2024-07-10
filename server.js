@@ -1,5 +1,7 @@
 // DEPENDENCIES
 const { Sequelize } = require('sequelize');
+const cors = require('cors')
+
 // import './App.css'
 const express = require("express");
 const app = express();
@@ -9,8 +11,9 @@ const app = express();
 require('dotenv').config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(cors())
 const bodyParser = require("body-parser");
-const port = 5432;
+const port = 5001;
 
 app.use(bodyParser.json());
 app.use(

@@ -2,109 +2,35 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image"
+import Image from "react-bootstrap/Image";
 
 const Gallery = () => {
-  const [names, setNames] = useState([]);
-
-  //   // useEffect(() => {
-  //   //   fetch("postgres://localhost:5432/pets")
-  //   //     .then((response) => response.json())
-  //   //     .then((data) => setNames(data))
-  //   //     console.log(names)
-  //   //     .catch((error) => console.error("Error fetching names:", error));
-  //   // }, []);
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const response = await fetch(`http://localhost:3000/pets`);
-
-  //       const resData = await response.json();
-
-  //       setNames(resData);
-  //     };
-
-  //     fetchData();
-  //   }, []);
-  //   return (
-  //     <div>
-  //       <h1>Name List</h1>
-  //       <p></p>
-  //       <ul>
-  //         {names.map(
-  //           (name) => console.log(name)
-  //           // <li key={index}>{name.name}</li>
-  //         )}
-  //       </ul>
-  //       {/* no .map CSS driven gallery*/}
-  //       <div class="AllPets">
-  //         <div class="pet">
-  //           <img
-  //             // img hook here
-  //             alt="Cat"
-  //             class="petPic"
-  //           />
-  //           <a href="" class="Name">
-  //             {/* Their name as a clickable link, pet id hook goes above in href */}
-  //             {/* pet name hook goes here */}
-  //           </a>
-  //           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
-  //         </div>
-  //         <div class="pet">
-  //           <img
-  //             // img hook here
-  //             alt="Cat"
-  //             class="petPic"
-  //           />
-  //           <a href="" class="Name">
-  //             {/* Their name as a clickable link, pet id hook goes above in href */}
-  //             {/* pet name hook goes here */}
-  //           </a>
-  //           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
-  //         </div>
-  //         <div class="pet">
-  //           <img
-  //             // img hook here
-  //             alt="Cat"
-  //             class="petPic"
-  //           />
-  //           <a href="" class="Name">
-  //             {/* Their name as a clickable link, pet id hook goes above in href */}
-  //             {/* pet name hook goes here */}
-  //           </a>
-  //           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
-  //         </div>
-  //         <div class="pet">
-  //           <img
-  //             // img hook here
-  //             alt="Cat"
-  //             class="petPic"
-  //           />
-  //           <a href="" class="Name">
-  //             {/* Their name as a clickable link, pet id hook goes above in href */}
-  //             {/* pet name hook goes here */}
-  //           </a>
-  //           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
-  // export default Gallery;
+  const [pets, setPets] = useState([]);
 
   //no .map bootstrap driven gallery
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(`http://localhost:3000/pets`);
+
+  //     const resData = await response.json();
+
+  //     setPets(resData);
+  //   };
+
+  //   fetchData();
+  // }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:3000/pets`);
-
-      const resData = await response.json();
-
-      setNames(resData);
+      try {
+        const response = await fetch(`http://localhost:5001/pets`);
+        const resData = await response.json();
+        setPets(resData);
+      } catch (error) {
+        console.error("Error fetching the pets data: ", error);
+      }
     };
-
     fetchData();
   }, []);
-
   return (
     <div style={{ margin: "auto" }}>
       <Container style={{ marginTop: "50px", textAlign: "center" }}>
@@ -116,7 +42,9 @@ const Gallery = () => {
           }}
         >
           <Row>
-            {/* image hook goes in src below */}
+            {pets.map((pet) => (
+              <p key={pet.pet_id}>{pet.name}</p>
+            ))}
             <Col xs=".5">
               <Image
                 style={{
@@ -216,3 +144,88 @@ const Gallery = () => {
   );
 };
 export default Gallery;
+
+//   // useEffect(() => {
+//   //   fetch("postgres://localhost:5432/pets")
+//   //     .then((response) => response.json())
+//   //     .then((data) => setNames(data))
+//   //     console.log(names)
+//   //     .catch((error) => console.error("Error fetching names:", error));
+//   // }, []);
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const response = await fetch(`http://localhost:3000/pets`);
+
+//       const resData = await response.json();
+
+//       setNames(resData);
+//     };
+
+//     fetchData();
+//   }, []);
+//   return (
+//     <div>
+//       <h1>Name List</h1>
+//       <p></p>
+//       <ul>
+//         {names.map(
+//           (name) => console.log(name)
+//           // <li key={index}>{name.name}</li>
+//         )}
+//       </ul>
+//       {/* no .map CSS driven gallery*/}
+//       <div class="AllPets">
+//         <div class="pet">
+//           <img
+//             // img hook here
+//             alt="Cat"
+//             class="petPic"
+//           />
+//           <a href="" class="Name">
+//             {/* Their name as a clickable link, pet id hook goes above in href */}
+//             {/* pet name hook goes here */}
+//           </a>
+//           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
+//         </div>
+//         <div class="pet">
+//           <img
+//             // img hook here
+//             alt="Cat"
+//             class="petPic"
+//           />
+//           <a href="" class="Name">
+//             {/* Their name as a clickable link, pet id hook goes above in href */}
+//             {/* pet name hook goes here */}
+//           </a>
+//           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
+//         </div>
+//         <div class="pet">
+//           <img
+//             // img hook here
+//             alt="Cat"
+//             class="petPic"
+//           />
+//           <a href="" class="Name">
+//             {/* Their name as a clickable link, pet id hook goes above in href */}
+//             {/* pet name hook goes here */}
+//           </a>
+//           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
+//         </div>
+//         <div class="pet">
+//           <img
+//             // img hook here
+//             alt="Cat"
+//             class="petPic"
+//           />
+//           <a href="" class="Name">
+//             {/* Their name as a clickable link, pet id hook goes above in href */}
+//             {/* pet name hook goes here */}
+//           </a>
+//           <h2 class="line2">{/* Their weight or age hook can go here */}</h2>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Gallery;
